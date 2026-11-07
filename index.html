@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis XV Años - Jackeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Pinyon+Script&family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--pearl:#F8FBFD;--sky:#DCEEFA;--sky2:#EAF5FC;--silver:#B4BCC6;--silver-d:#8E98A5;--navy:#1E2B3C;--text:#2A3441;--muted:#6B7684;--ease:cubic-bezier(.25,1,.5,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;font-family:'Montserrat',sans-serif;background:var(--pearl);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
+
+/* SOBRE */
+#envelope-screen{position:fixed;inset:0;background:var(--pearl);z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 1.2s,visibility 1.2s}
+#envelope-screen.fade-out{opacity:0;visibility:hidden;pointer-events:none}
+.env-text{text-align:center;margin-bottom:50px;animation:floatT 4s ease-in-out infinite}
+.env-tag{font-family:'Cinzel',serif;font-size:14px;letter-spacing:8px;text-transform:uppercase;color:var(--muted)}
+.env-title{font-family:'Pinyon Script',cursive;font-size:80px;color:var(--text);line-height:1.2}
+.envelope-wrapper{position:relative;cursor:pointer;transition:transform .6s var(--ease)}
+.envelope-wrapper:hover{transform:translateY(-8px)}
+.envelope{position:relative;width:320px;height:210px;background:#fff;border-radius:2px;box-shadow:0 15px 35px rgba(30,43,60,.08);border:1px solid rgba(0,0,0,.03)}
+.envelope::before{content:'';position:absolute;top:0;right:0;border-right:160px solid #dbeaf5;border-top:105px solid transparent;border-bottom:105px solid #dbeaf5;z-index:2}
+.envelope::after{content:'';position:absolute;top:0;left:0;border-left:160px solid #e8f3fa;border-top:105px solid transparent;border-bottom:105px solid #e8f3fa;z-index:2}
+.front-flap{position:absolute;top:0;left:0;border-left:160px solid transparent;border-right:160px solid transparent;border-top:115px solid #c9dff0;transform-origin:top;transition:transform .9s var(--ease);z-index:4;filter:drop-shadow(0 4px 6px rgba(0,0,0,.04))}
+.envelope-wrapper.open .front-flap{transform:rotateX(180deg);z-index:1}
+.seal{position:absolute;top:90px;left:50%;transform:translateX(-50%);width:45px;height:45px;background:linear-gradient(135deg,#d9dee4,#9aa4b0);border-radius:50%;z-index:5;display:flex;justify-content:center;align-items:center;box-shadow:0 4px 15px rgba(120,130,145,.4);transition:opacity .5s,transform .5s}
+.seal svg{width:22px;height:22px;fill:#fff}
+.envelope-wrapper.open .seal{opacity:0;transform:translateX(-50%) scale(.5)}
+.hint{font-size:11px;text-transform:uppercase;letter-spacing:4px;color:var(--muted);margin-top:40px;animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes floatT{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* BASE */
+#main{display:none;width:100%;flex-direction:column;align-items:center;opacity:0;animation:fadeIn 2s forwards .3s}
+body.active #main{display:flex}
+@keyframes fadeIn{to{opacity:1}}
+.anim{opacity:0;transition:all 1.2s var(--ease);position:relative;z-index:2}
+.up{transform:translateY(40px)}.zoom{transform:scale(.92)}
+.anim.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.25s}.d3{transition-delay:.4s}.d4{transition-delay:.55s}
+section{width:100%;padding:100px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.bg-pearl{background:var(--pearl)}.bg-sky{background:var(--sky)}.bg-sky2{background:var(--sky2)}.bg-navy{background:var(--navy);color:#fff}
+.sparkle{position:absolute;pointer-events:none;z-index:0;fill:var(--silver);opacity:.5}
+.tag{font-family:'Cinzel',serif;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--silver-d);margin-bottom:25px;font-weight:500}
+.script{font-family:'Pinyon Script',cursive;font-size:84px;color:var(--text);margin-bottom:20px;line-height:1.1}
+.serif{font-family:'Cormorant Garamond',serif;font-size:23px;line-height:1.6;color:var(--muted);font-style:italic;max-width:600px;padding:0 15px}
+.bg-navy .script,.bg-navy .serif,.bg-navy .data{color:#fff}
+.vline{width:1px;height:60px;background:var(--silver);margin:35px auto}
+.hline{width:60px;height:1px;background:var(--silver);margin:40px auto}
+.title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--silver-d);margin-bottom:12px;font-weight:500;line-height:1.4}
+.data{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--text);margin-bottom:5px;line-height:1.3}
+.btn{display:inline-block;background:linear-gradient(135deg,#a9b6c4,#7f8c9b);color:#fff;padding:17px 35px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;border-radius:2px;transition:all .4s;margin-top:30px}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(127,140,155,.35)}
+
+/* FOTOS: se ven completas y abren en lightbox */
+.photo{width:100%;max-width:420px;margin:50px auto 0;box-shadow:0 20px 50px rgba(30,43,60,.12);border:5px solid #fff;border-radius:2px;overflow:hidden;cursor:zoom-in;background:#fff}
+.photo img{width:100%;height:auto;display:block;transition:transform .6s}
+.photo:hover img{transform:scale(1.02)}
+#lightbox{position:fixed;inset:0;background:rgba(15,22,32,.94);z-index:3000;display:none;justify-content:center;align-items:center;padding:20px;cursor:zoom-out}
+#lightbox.show{display:flex}
+#lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;object-fit:contain;border-radius:2px}
+#lightbox .x{position:absolute;top:18px;right:24px;color:#fff;font-size:38px;line-height:1;font-family:sans-serif}
+
+/* CUENTA ATRÁS */
+.countdown{display:flex;gap:14px;justify-content:center;margin:30px 0 10px}
+.cd-box{background:#fff;min-width:70px;padding:16px 8px;border-radius:2px;box-shadow:0 10px 30px rgba(30,43,60,.07);border:1px solid rgba(0,0,0,.03)}
+.cd-num{font-family:'Cinzel',serif;font-size:30px;color:var(--text);line-height:1}
+.cd-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver-d);margin-top:8px}
+
+/* CALENDARIO */
+.cal{width:100%;max-width:340px;margin:40px auto 0;padding:35px 25px;background:#fff;border-radius:2px;box-shadow:0 15px 45px rgba(30,43,60,.06);border:1px solid rgba(0,0,0,.03)}
+.cal-m{font-family:'Cinzel',serif;font-size:20px;text-transform:uppercase;letter-spacing:4px;margin-bottom:30px}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-h{font-size:clamp(10px,3vw,12px);font-weight:500;color:var(--silver-d);padding-bottom:12px}
+.cal-d{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.5vw,20px);color:var(--muted);display:flex;justify-content:center;align-items:center;aspect-ratio:1}
+.cal-d.on{background:linear-gradient(135deg,#a9b6c4,#7f8c9b);color:#fff;border-radius:50%;font-weight:500;box-shadow:0 4px 12px rgba(127,140,155,.4)}
+
+/* MAPAS */
+.map{width:100%;max-width:550px;height:320px;margin:30px auto 0;overflow:hidden;border-radius:2px;box-shadow:0 15px 40px rgba(30,43,60,.08)}
+.map iframe{width:100%;height:100%;border:0}
+.addr{font-size:13px;color:var(--muted);line-height:1.6;max-width:400px;margin:5px 0 0}
+
+/* ITINERARIO */
+.timeline{position:relative;max-width:420px;width:100%;margin:40px auto 0;text-align:left}
+.timeline::before{content:'';position:absolute;left:92px;top:6px;bottom:6px;width:1px;background:var(--silver)}
+.tl{display:flex;align-items:center;gap:0;margin-bottom:26px;position:relative}
+.tl-t{width:80px;font-family:'Cinzel',serif;font-size:14px;color:var(--silver-d);text-align:right;flex-shrink:0}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--silver-d);margin:0 18px 0 7px;flex-shrink:0;z-index:2}
+.tl-e{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--text)}
+
+/* REGALOS / FORMS */
+.card{background:#fff;border:1px solid rgba(0,0,0,.05);padding:30px;border-radius:2px;max-width:400px;width:100%;margin-top:30px}
+.fg{width:100%;max-width:400px;margin:0 auto 20px}
+.inp{width:100%;padding:18px 0;background:transparent;border:none;border-bottom:1px solid rgba(0,0,0,.15);color:var(--text);font-family:'Montserrat',sans-serif;font-size:15px;outline:none;text-align:center;transition:border-color .4s;border-radius:0}
+.inp:focus{border-bottom-color:var(--silver-d)}
+textarea.inp{resize:vertical;min-height:90px}
+select.inp{appearance:none;-webkit-appearance:none;text-align-last:center;cursor:pointer}
+.notice{background:rgba(255,255,255,.75);padding:25px 20px;border-radius:4px;border:1px solid rgba(142,152,165,.35);max-width:420px;margin:0 auto 40px}
+.ticket{width:100%;max-width:380px;margin:30px auto;background:#fff;padding:50px 25px;position:relative;text-align:center;border-radius:2px;box-shadow:0 15px 40px rgba(30,43,60,.07);border:1px solid rgba(0,0,0,.03)}
+.ticket::before,.ticket::after{content:'';position:absolute;top:60%;transform:translateY(-50%);width:24px;height:24px;background:var(--sky);border-radius:50%}
+.ticket::before{left:-12px}.ticket::after{right:-12px}
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--navy);color:#fff;padding:14px 26px;border-radius:2px;font-size:13px;letter-spacing:1px;opacity:0;pointer-events:none;transition:all .5s;z-index:4000;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%)}
+
+@media(max-width:400px){.env-title{font-size:62px}.script{font-size:66px}section{padding:80px 15px}.data{font-size:28px}.map{height:260px}.envelope{width:300px;height:195px}.envelope::before,.envelope::after{border-left-width:150px;border-right-width:150px;border-top-width:97px;border-bottom-width:97px}.front-flap{border-left-width:150px;border-right-width:150px;border-top-width:105px}.cd-box{min-width:62px}.cd-num{font-size:25px}.countdown{gap:8px}}
+</style>
+</head>
+<body>
+
+<div id="lightbox" onclick="closeLB()"><span class="x">&times;</span><img id="lb-img" alt=""></div>
+<div id="toast"></div>
+
+<!-- SOBRE -->
+<div id="envelope-screen">
+  <div class="env-text"><div class="env-tag">Mis XV Años</div><h1 class="env-title">Jackeline</h1></div>
+  <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="front-flap"></div>
+    <div class="seal"><svg viewBox="0 0 24 24"><path d="M12 2L15 9H22L16.5 13.5L18.5 21L12 17L5.5 21L7.5 13.5L2 9H9L12 2Z"/></svg></div>
+    <div class="envelope"></div>
+  </div>
+  <div class="hint">Tocar para abrir</div>
+</div>
+
+<main id="main">
+
+<!-- PORTADA (1) -->
+<section class="bg-pearl">
+  <svg class="sparkle" style="top:30px;left:20px;width:40px" viewBox="0 0 24 24"><path d="M12 0l2.5 9.5L24 12l-9.5 2.5L12 24l-2.5-9.5L0 12l9.5-2.5z"/></svg>
+  <svg class="sparkle" style="bottom:60px;right:25px;width:28px" viewBox="0 0 24 24"><path d="M12 0l2.5 9.5L24 12l-9.5 2.5L12 24l-2.5-9.5L0 12l9.5-2.5z"/></svg>
+  <div class="anim up d1 tag">Mis XV Años</div>
+  <h1 class="anim zoom d2 script">Jackeline</h1>
+  <div class="anim up d3 vline"></div>
+  <p class="anim up d4 serif">"Hoy celebro el inicio de una nueva etapa, agradeciendo a Dios por la vida y a mi familia por acompañarme en cada paso del camino."</p>
+  <div class="anim up d4 photo"><img src="assets/1.jpg" alt="Jackeline" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- FECHA, CUENTA ATRÁS Y CALENDARIO (2) -->
+<section class="bg-sky">
+  <div class="anim up d1 title" style="letter-spacing:2px">Será un honor contar con tu presencia el</div>
+  <div class="anim up d2 data" style="font-size:40px;font-weight:500">20 de Noviembre</div>
+  <div class="anim up d3 data" style="font-size:24px;color:var(--silver-d);letter-spacing:2px">2026</div>
+
+  <div class="anim up d3 countdown">
+    <div class="cd-box"><div class="cd-num" id="cd-d">0</div><div class="cd-lbl">Días</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-h">0</div><div class="cd-lbl">Horas</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-m">0</div><div class="cd-lbl">Min</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-s">0</div><div class="cd-lbl">Seg</div></div>
+  </div>
+
+  <div class="anim zoom d4 cal">
+    <div class="cal-m">Noviembre</div>
+    <div class="cal-g" id="cal-grid"></div>
+  </div>
+  <a class="anim up d4 btn" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+A%C3%B1os+de+Jackeline&dates=20261120T230000Z/20261121T070000Z&details=Celebremos+juntos+este+d%C3%ADa+tan+especial&location=Templo+Santo+Domingo+Savio">Agendar Evento</a>
+  <div class="anim up d4 photo"><img src="assets/2.jpg" alt="Jackeline" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- PADRES (3) -->
+<section class="bg-pearl">
+  <div class="anim up d1 title">Con el amor de mis padres</div>
+  <div class="anim up d2 data">Jessica Villarreal</div>
+  <div class="anim up d3" style="font-family:'Cinzel',serif;font-size:20px;color:var(--silver-d);margin:15px 0">&amp;</div>
+  <div class="anim up d3 data">Juan José Chávez</div>
+  <div class="anim up d4 photo"><img src="assets/3.jpg" alt="Familia" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- CEREMONIA Y RECEPCIÓN (4 y 5) -->
+<section class="bg-sky2">
+  <div class="anim up d1 title">Ceremonia Religiosa</div>
+  <div class="anim up d2 data">Templo Santo Domingo Savio</div>
+  <div class="anim up d3 tag" style="margin:12px 0 5px;color:var(--muted)">5:00 p.m.</div>
+  <p class="anim up d3 addr">Av. Constituyentes de Nuevo León 205, Linda Vista, 67130 Guadalupe, N.L.</p>
+  <div class="anim zoom d4 map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.45254338563!2d-100.26424322437363!3d25.689436511586567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662954d138a3cbf%3A0x58773fabf590da87!2sTemplo%20Santo%20Domingo%20Savio!5e0!3m2!1ses-419!2smx!4v1794013481088!5m2!1ses-419!2smx" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <a class="anim up d4 btn" target="_blank" href="https://maps.app.goo.gl/DJ112S5NCBkvAoVFA">Ver Ubicación</a>
+  <div class="anim up d4 photo"><img src="assets/4.jpg" alt="Momentos" onerror="this.parentNode.style.display='none'"></div>
+
+  <div class="anim zoom hline" style="margin:70px auto 40px"></div>
+
+  <div class="anim up d1 title">Recepción</div>
+  <div class="anim up d2 data">La Terraza Eventos</div>
+  <div class="anim up d3 tag" style="margin:12px 0 5px;color:var(--muted)">7:00 p.m.</div>
+  <p class="anim up d3 addr">Blvrd Julian Treviño Elizondo 100, Padilla, 66645 Cdad. Apodaca, N.L.</p>
+  <div class="anim zoom d4 map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.7674552205967!2d-100.18217192437245!3d25.745202709286893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662ebdacc8f4755%3A0x3ab48b0f00a90719!2sLa%20Terraza%20Eventos%20Apodaca.!5e0!3m2!1ses-419!2smx!4v1794013516954!5m2!1ses-419!2smx" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <a class="anim up d4 btn" target="_blank" href="https://maps.app.goo.gl/5e6goTLWYUWdDoa37">Ver Ubicación</a>
+  <div class="anim up d4 photo"><img src="assets/5.jpg" alt="Momentos" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- ITINERARIO (6) -->
+<section class="bg-pearl">
+  <div class="anim up d1 title">Programa</div>
+  <div class="anim up d2 data" style="font-size:36px">Itinerario</div>
+  <div class="anim up d3 timeline">
+    <div class="tl"><div class="tl-t">5:00 pm</div><div class="tl-dot"></div><div class="tl-e">Misa</div></div>
+    <div class="tl"><div class="tl-t">7:00 pm</div><div class="tl-dot"></div><div class="tl-e">Entrada al salón</div></div>
+    <div class="tl"><div class="tl-t">8:00 pm</div><div class="tl-dot"></div><div class="tl-e">Entrada de la quinceañera</div></div>
+    <div class="tl"><div class="tl-t">8:15 pm</div><div class="tl-dot"></div><div class="tl-e">Vals</div></div>
+    <div class="tl"><div class="tl-t">8:30 pm</div><div class="tl-dot"></div><div class="tl-e">Bailes</div></div>
+    <div class="tl"><div class="tl-t">9:30 pm</div><div class="tl-dot"></div><div class="tl-e">Cena</div></div>
+    <div class="tl"><div class="tl-t">10:00 pm</div><div class="tl-dot"></div><div class="tl-e">DJ</div></div>
+    <div class="tl"><div class="tl-t">1:00 am</div><div class="tl-dot"></div><div class="tl-e">Fin</div></div>
+  </div>
+  <div class="anim up d4 photo"><img src="assets/6.jpg" alt="Jackeline" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- VESTIMENTA (7) -->
+<section class="bg-navy">
+  <div class="anim up d1 title" style="color:#c5cdd6">Código de Vestimenta</div>
+  <div class="anim up d2 data" style="font-family:'Cinzel',serif;font-size:42px;margin:25px 0;letter-spacing:6px">FORMAL</div>
+  <div class="anim up d3 vline" style="background:#4a5a6d;height:40px"></div>
+  <p class="anim up d4 serif" style="color:#aeb9c5;font-size:20px">El color azul y celeste está reservado para la quinceañera.</p>
+  <div class="anim up d4 photo" style="border-color:#2c3b4e"><img src="assets/7.jpg" alt="Vestimenta" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- REGALOS (8) -->
+<section class="bg-pearl">
+  <div class="anim up d1 title">Mesa de Regalos</div>
+  <svg class="anim zoom d2" viewBox="0 0 24 24" style="width:45px;height:45px;fill:var(--silver-d);margin:20px 0"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  <div class="anim up d3 data" style="font-size:34px">Lluvia de Sobres</div>
+  <p class="anim up d4 serif" style="margin-top:20px;font-size:20px">El obsequio más hermoso es tu presencia. Si deseas tener un detalle adicional, habrá un buzón en la recepción para tu obsequio.</p>
+  <div class="anim up d4 photo"><img src="assets/8.jpg" alt="Regalos" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- PLAYLIST (9) -->
+<section class="bg-sky">
+  <div class="anim up d1 title">Música</div>
+  <div class="anim up d2 data" style="font-size:34px">Nuestra Playlist</div>
+  <p class="anim up d3 serif" style="margin:20px auto 40px;font-size:20px">Ayúdame a crear el ambiente perfecto agregando tus canciones favoritas para la pista de baile.</p>
+  <div class="anim zoom d4" style="width:100%;max-width:480px">
+    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/64k7AdbVK891iJrnLW4KgY?utm_source=generator&si=a352465f6bf54f8d" width="100%" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+  <a class="anim up d4 btn" target="_blank" href="https://open.spotify.com/playlist/64k7AdbVK891iJrnLW4KgY?si=d8effd2d04194949&pt=a3706d9eda924ff020441b8cf6ec5e65">Agregar Canciones</a>
+  <div class="anim up d4 photo"><img src="assets/9.jpg" alt="Fiesta" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+<!-- GALERÍA EN VIVO -->
+<section class="bg-pearl">
+  <div class="anim up d1 title">Momentos</div>
+  <div class="anim up d2 data" style="font-size:34px">Galería en Vivo</div>
+  <p class="anim up d3 serif" style="margin:25px auto;font-size:20px">Captura la magia de esta noche. Comparte las fotos y videos que tomes directamente en nuestro álbum digital.<br><br>
+    <span style="font-size:14px;font-family:'Montserrat',sans-serif;font-style:normal;font-weight:500">Te sugerimos tener instalada la app de <strong>Google Drive</strong> para subir tus archivos fácilmente.</span></p>
+  <a class="anim up d4 btn" target="_blank" href="https://drive.google.com/drive/folders/1wVDP9sbVWzrs351-h70dQaqz93af21xk?usp=sharing">Subir mis Fotos</a>
+</section>
+
+<!-- RSVP + DESEOS (10) -->
+<section class="bg-sky2">
+  <div id="pases" style="display:none;width:100%">
+    <div class="anim up d1 title">Acceso al Evento</div>
+    <div class="anim zoom d2 ticket">
+      <div class="tag" style="margin-bottom:20px">Boleto Especial</div>
+      <div class="serif" style="font-size:22px;margin:0 auto 15px">Pases Asignados</div>
+      <div id="t-count" style="font-family:'Cinzel',serif;font-size:64px;font-weight:500;line-height:1">0</div>
+      <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-top:35px">Muestra esta pantalla al llegar</div>
+    </div>
+    <div class="hline" style="margin:50px auto"></div>
+  </div>
+
+  <div class="anim up d1 title">RSVP</div>
+  <div class="anim up d2 data" style="font-size:34px">Confirmar Asistencia</div>
+  <p class="anim up d3 serif" style="margin:15px auto 35px;font-size:20px">Agradeceremos tu confirmación lo antes posible.</p>
+
+  <div class="anim up d4 fg"><input type="text" id="r-name" class="inp" placeholder="Tu nombre y apellido"></div>
+  <div class="anim up d4 fg">
+    <select id="r-status" class="inp">
+      <option value="" disabled selected>¿Nos acompañarás?</option>
+      <option value="yes">Con gusto asistiré</option>
+      <option value="no">No me será posible asistir</option>
+    </select>
+  </div>
+  <div class="anim up d4 fg"><select id="r-guests" class="inp" style="display:none"></select></div>
+  <button class="anim up d4 btn" id="btn-rsvp" onclick="sendRSVP()" style="margin-bottom:70px">Confirmar por WhatsApp</button>
+
+  <div class="vline"></div>
+
+  <div class="anim up d1 title">Mensajes</div>
+  <div class="anim up d2 data" style="font-size:34px">Muro de los Deseos</div>
+  <div class="anim up d3 fg" style="margin-top:30px"><input type="text" id="w-name" class="inp" placeholder="De parte de..."></div>
+  <div class="anim up d4 fg"><textarea id="w-msg" class="inp" placeholder="Deja un lindo mensaje para Jackeline..."></textarea></div>
+  <button class="anim up d4 btn" id="btn-wish" onclick="sendWish()" style="margin-bottom:50px">Enviar Mensaje</button>
+
+  <div class="anim up d4 photo" style="margin-top:20px"><img src="assets/10.jpg" alt="Jackeline" onerror="this.parentNode.style.display='none'"></div>
+</section>
+
+</main>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const SHEETS_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT"; // URL de la implementación web (termina en /exec)
+const WHATSAPP   = "528127336630";
+const EVENT_DATE = new Date("2026-11-20T17:00:00-06:00");
+const NOMBRE_FESTEJADA = "Jackeline";
+
+/* ===== SOBRE ===== */
+function openEnvelope(){
+  document.querySelector('.envelope-wrapper').classList.add('open');
+  setTimeout(()=>{
+    document.getElementById('envelope-screen').classList.add('fade-out');
+    document.body.classList.add('active');
+    initObserver();
+  },1000);
+}
+
+/* ===== ANIMACIONES AL HACER SCROLL ===== */
+function initObserver(){
+  const io=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.anim').forEach(el=>io.observe(el));
+}
+
+/* ===== LIGHTBOX (fotos completas) ===== */
+document.addEventListener('click',e=>{
+  const img=e.target.closest('.photo img');
+  if(img){document.getElementById('lb-img').src=img.src;document.getElementById('lightbox').classList.add('show')}
+});
+function closeLB(){document.getElementById('lightbox').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+
+/* ===== CALENDARIO NOVIEMBRE 2026 (1 nov = domingo, 30 días) ===== */
+(function(){
+  let h=['D','L','M','M','J','V','S'].map(d=>`<div class="cal-h">${d}</div>`).join('');
+  for(let i=1;i<=30;i++) h+=`<div class="cal-d${i===20?' on':''}">${i}</div>`;
+  document.getElementById('cal-grid').innerHTML=h;
+})();
+
+/* ===== CUENTA ATRÁS ===== */
+function tick(){
+  let diff=EVENT_DATE-new Date();
+  if(diff<0)diff=0;
+  const s=Math.floor(diff/1000);
+  document.getElementById('cd-d').textContent=Math.floor(s/86400);
+  document.getElementById('cd-h').textContent=String(Math.floor(s%86400/3600)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor(s%3600/60)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s%60).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+/* ===== PASES NUMERADOS INVYTIA (?p=n) ===== */
+const qs=new URLSearchParams(location.search);
+const pRaw=qs.get('p')||qs.get('pases');
+const pases=(pRaw&&!isNaN(pRaw)&&parseInt(pRaw)>0)?parseInt(pRaw):0;
+if(pases>0){
+  document.getElementById('pases').style.display='block';
+  document.getElementById('t-count').textContent=pases;
+}
+const maxGuests=pases>0?pases:10;
+
+const rStatus=document.getElementById('r-status'),rGuests=document.getElementById('r-guests');
+rStatus.addEventListener('change',e=>{
+  if(e.target.value==='yes'){
+    let o='<option value="" disabled selected>¿Cuántas personas asisten?</option>';
+    for(let i=1;i<=maxGuests;i++)o+=`<option value="${i}">${i} persona${i>1?'s':''}</option>`;
+    rGuests.innerHTML=o;rGuests.style.display='block';
+  }else{rGuests.style.display='none';rGuests.value=''}
+});
+
+/* ===== UTILIDADES ===== */
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3200)}
+
+function toSheet(payload){
+  if(!SHEETS_URL||SHEETS_URL.startsWith('PEGA_'))return;
+  try{
+    fetch(SHEETS_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(()=>{});
+  }catch(e){}
+}
+
+/* ===== RSVP ===== */
+function sendRSVP(){
+  const name=document.getElementById('r-name').value.trim();
+  const status=rStatus.value,guests=rGuests.value;
+  if(!name||!status){toast('Por favor, escribe tu nombre y selecciona una opción.');return}
+  if(status==='yes'&&!guests){toast('Por favor, indica cuántas personas asistirán.');return}
+
+  const msg=status==='yes'
+    ?`¡Hola! Soy ${name}. Sí, confirmo con gusto mi asistencia a los XV años de ${NOMBRE_FESTEJADA}. Seremos ${guests} persona(s) en total.`
+    :`¡Hola! Soy ${name}. Lamentablemente no me será posible asistir a los XV años de ${NOMBRE_FESTEJADA}. Agradezco mucho la invitación.`;
+
+  toSheet({tipo:'rsvp',nombre:name,asistencia:status==='yes'?'Sí asiste':'No asiste',personas:status==='yes'?guests:0,pases_asignados:pases||'',enlace:location.href});
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
+  toast('¡Gracias por confirmar!');
+}
+
+/* ===== DESEOS ===== */
+function sendWish(){
+  const name=document.getElementById('w-name').value.trim();
+  const wish=document.getElementById('w-msg').value.trim();
+  if(!name||!wish){toast('Por favor, ingresa tu nombre y tu mensaje.');return}
+  toSheet({tipo:'deseo',nombre:name,mensaje:wish,enlace:location.href});
+  const msg=`Hola ${NOMBRE_FESTEJADA}, soy ${name}. Te envío este mensaje con mucho cariño:\n\n"${wish}"`;
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
+  toast('¡Mensaje enviado!');
+  document.getElementById('w-msg').value='';
+}
+</script>
+</body>
+</html>
