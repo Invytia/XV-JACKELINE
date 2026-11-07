@@ -6,7 +6,7 @@
 <title>Mis XV Años - Jackeline</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Pinyon+Script&family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--pearl:#F8FBFD;--sky:#DCEEFA;--sky2:#EAF5FC;--silver:#B4BCC6;--silver-d:#8E98A5;--navy:#1E2B3C;--text:#2A3441;--muted:#6B7684;--ease:cubic-bezier(.25,1,.5,1)}
+:root{--pearl:#E3F1FB;--sky:#B3D9F2;--sky2:#CCE5F7;--silver:#B4BCC6;--silver-d:#8E98A5;--navy:#1E2B3C;--text:#2A3441;--muted:#6B7684;--ease:cubic-bezier(.25,1,.5,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;font-family:'Montserrat',sans-serif;background:var(--pearl);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
 
@@ -19,9 +19,9 @@ html,body{width:100%;font-family:'Montserrat',sans-serif;background:var(--pearl)
 .envelope-wrapper{position:relative;cursor:pointer;transition:transform .6s var(--ease)}
 .envelope-wrapper:hover{transform:translateY(-8px)}
 .envelope{position:relative;width:320px;height:210px;background:#fff;border-radius:2px;box-shadow:0 15px 35px rgba(30,43,60,.08);border:1px solid rgba(0,0,0,.03)}
-.envelope::before{content:'';position:absolute;top:0;right:0;border-right:160px solid #dbeaf5;border-top:105px solid transparent;border-bottom:105px solid #dbeaf5;z-index:2}
-.envelope::after{content:'';position:absolute;top:0;left:0;border-left:160px solid #e8f3fa;border-top:105px solid transparent;border-bottom:105px solid #e8f3fa;z-index:2}
-.front-flap{position:absolute;top:0;left:0;border-left:160px solid transparent;border-right:160px solid transparent;border-top:115px solid #c9dff0;transform-origin:top;transition:transform .9s var(--ease);z-index:4;filter:drop-shadow(0 4px 6px rgba(0,0,0,.04))}
+.envelope::before{content:'';position:absolute;top:0;right:0;border-right:160px solid #b9d8ee;border-top:105px solid transparent;border-bottom:105px solid #b9d8ee;z-index:2}
+.envelope::after{content:'';position:absolute;top:0;left:0;border-left:160px solid #cde4f4;border-top:105px solid transparent;border-bottom:105px solid #cde4f4;z-index:2}
+.front-flap{position:absolute;top:0;left:0;border-left:160px solid transparent;border-right:160px solid transparent;border-top:115px solid #a3cae6;transform-origin:top;transition:transform .9s var(--ease);z-index:4;filter:drop-shadow(0 4px 6px rgba(0,0,0,.04))}
 .envelope-wrapper.open .front-flap{transform:rotateX(180deg);z-index:1}
 .seal{position:absolute;top:90px;left:50%;transform:translateX(-50%);width:45px;height:45px;background:linear-gradient(135deg,#d9dee4,#9aa4b0);border-radius:50%;z-index:5;display:flex;justify-content:center;align-items:center;box-shadow:0 4px 15px rgba(120,130,145,.4);transition:opacity .5s,transform .5s}
 .seal svg{width:22px;height:22px;fill:#fff}
@@ -61,6 +61,11 @@ section{width:100%;padding:100px 20px;display:flex;flex-direction:column;align-i
 #lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;object-fit:contain;border-radius:2px}
 #lightbox .x{position:absolute;top:18px;right:24px;color:#fff;font-size:38px;line-height:1;font-family:sans-serif}
 
+/* MÚSICA */
+.music-btn{position:fixed;bottom:28px;right:28px;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#a9b6c4,#6f8091);display:flex;justify-content:center;align-items:center;box-shadow:0 10px 25px rgba(90,110,130,.4);z-index:2000;cursor:pointer;border:none;outline:none;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .6s var(--ease)}
+body.active .music-btn{opacity:1;visibility:visible;transform:none}
+.music-btn svg{width:18px;height:18px;fill:#fff}
+
 /* CUENTA ATRÁS */
 .countdown{display:flex;gap:14px;justify-content:center;margin:30px 0 10px}
 .cd-box{background:#fff;min-width:70px;padding:16px 8px;border-radius:2px;box-shadow:0 10px 30px rgba(30,43,60,.07);border:1px solid rgba(0,0,0,.03)}
@@ -97,7 +102,7 @@ textarea.inp{resize:vertical;min-height:90px}
 select.inp{appearance:none;-webkit-appearance:none;text-align-last:center;cursor:pointer}
 .notice{background:rgba(255,255,255,.75);padding:25px 20px;border-radius:4px;border:1px solid rgba(142,152,165,.35);max-width:420px;margin:0 auto 40px}
 .ticket{width:100%;max-width:380px;margin:30px auto;background:#fff;padding:50px 25px;position:relative;text-align:center;border-radius:2px;box-shadow:0 15px 40px rgba(30,43,60,.07);border:1px solid rgba(0,0,0,.03)}
-.ticket::before,.ticket::after{content:'';position:absolute;top:60%;transform:translateY(-50%);width:24px;height:24px;background:var(--sky);border-radius:50%}
+.ticket::before,.ticket::after{content:'';position:absolute;top:60%;transform:translateY(-50%);width:24px;height:24px;background:var(--sky2);border-radius:50%}
 .ticket::before{left:-12px}.ticket::after{right:-12px}
 #toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--navy);color:#fff;padding:14px 26px;border-radius:2px;font-size:13px;letter-spacing:1px;opacity:0;pointer-events:none;transition:all .5s;z-index:4000;max-width:90vw;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%)}
@@ -107,6 +112,11 @@ select.inp{appearance:none;-webkit-appearance:none;text-align-last:center;cursor
 </head>
 <body>
 
+<audio id="bg-music" src="assets/song.mp3" loop preload="auto"></audio>
+<button id="music-btn" class="music-btn" onclick="toggleMusic()" aria-label="Música">
+  <svg id="ic-play" style="display:none" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <svg id="ic-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+</button>
 <div id="lightbox" onclick="closeLB()"><span class="x">&times;</span><img id="lb-img" alt=""></div>
 <div id="toast"></div>
 
@@ -297,7 +307,21 @@ function openEnvelope(){
     document.body.classList.add('active');
     initObserver();
   },1000);
+  startMusic(); // dentro del toque del usuario para que el navegador lo permita
 }
+
+/* ===== MÚSICA ===== */
+const bgMusic=document.getElementById('bg-music'),icPlay=document.getElementById('ic-play'),icPause=document.getElementById('ic-pause');
+function setIcons(on){icPlay.style.display=on?'none':'block';icPause.style.display=on?'block':'none'}
+function startMusic(){
+  const pr=bgMusic.play();
+  if(pr&&pr.then)pr.then(()=>setIcons(true)).catch(()=>setIcons(false));
+}
+function toggleMusic(){
+  if(bgMusic.paused){bgMusic.play().then(()=>setIcons(true)).catch(()=>toast('No se encontró la canción (assets/song.mp3)'))}
+  else{bgMusic.pause();setIcons(false)}
+}
+bgMusic.addEventListener('error',()=>setIcons(false));
 
 /* ===== ANIMACIONES AL HACER SCROLL ===== */
 function initObserver(){
