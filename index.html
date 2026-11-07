@@ -329,7 +329,7 @@ select.inp{appearance:none;-webkit-appearance:none;text-align-last:center;cursor
 <script>
 /* ===== CONFIGURACIÓN ===== */
 const SHEETS_URL = "https://script.google.com/macros/s/AKfycbw_Wmg9cEzpnr2vlquHb2f9FsVWFDb5EPJAjww63Tr6IyqgPYeMrImd9sj90rc2h5I6/exec"; // URL de la implementación web (termina en /exec)
-const WHATSAPP   = "528126446330";
+const WHATSAPP   = "528127336630";
 const EVENT_DATE = new Date("2026-11-20T17:00:00-06:00");
 const NOMBRE_FESTEJADA = "Jackeline";
 
@@ -435,8 +435,15 @@ function toast(t){const el=document.getElementById('toast');el.textContent=t;el.
 function toSheet(payload){
   if(!SHEETS_URL||SHEETS_URL.startsWith('PEGA_'))return;
   try{
-    fetch(SHEETS_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(()=>{});
-  }catch(e){}
+    // Envío por formulario oculto + iframe: es el método más compatible con Apps Script (sin CORS)
+    let fr=document.getElementById('sheet_frame');
+    if(!fr){fr=document.createElement('iframe');fr.name='sheet_frame';fr.id='sheet_frame';fr.style.display='none';document.body.appendChild(fr)}
+    const f=document.createElement('form');
+    f.method='POST';f.action=SHEETS_URL;f.target='sheet_frame';f.style.display='none';
+    Object.keys(payload).forEach(k=>{const i=document.createElement('input');i.type='hidden';i.name=k;i.value=payload[k];f.appendChild(i)});
+    document.body.appendChild(f);f.submit();
+    setTimeout(()=>f.remove(),3000);
+  }catch(e){console.error(e)}
 }
 
 /* ===== RSVP ===== */
